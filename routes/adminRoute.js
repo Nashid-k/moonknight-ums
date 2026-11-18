@@ -10,7 +10,7 @@ const adminController = require("../controllers/adminController");
 admin_route.use(
   session({
     secret: config.sessionSecret,
-    saveUninitialized: true,
+    saveUninitialized: false,\n    cookie: { httpOnly: true, sameSite: "lax", secure: process.env.NODE_ENV === "production" },
     resave: false,
   })
 );
@@ -34,7 +34,7 @@ admin_route.get("/home", auth.isLogin, adminController.loadDashboard);
 
 // New user route
 admin_route.get("/new-user", auth.isLogin, adminController.newUserLoad);
-admin_route.post("/new-user", adminController.addUser);
+admin_route.post("/new-user", auth.isLogin, adminController.addUser);
 
 // Logout route
 admin_route.get("/logout", auth.isLogin, adminController.logout);
@@ -44,10 +44,10 @@ admin_route.get("/dashboard", auth.isLogin, adminController.adminDashboard);
 
 // Edit user route
 admin_route.get("/edit-user", auth.isLogin, adminController.editUser);
-admin_route.post("/edit-user", adminController.updateUser);
+admin_route.post("/edit-user", auth.isLogin, adminController.updateUser);
 
 // Delete user route
-admin_route.get("/delete-user", adminController.deleteUser);
+admin_route.get("/delete-user", auth.isLogin, adminController.deleteUser);
 
 // Redirect to /admin for any unmatched routes
 admin_route.get("*", (req, res) => {
