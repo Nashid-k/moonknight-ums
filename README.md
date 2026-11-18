@@ -1,146 +1,48 @@
-# 🌓 MoonKnight-Themed User Management System (UMS)
+# MoonKnight UMS — User Management System
 
-A secure, modular **User Management System** built with **Node.js**, **Express**, **MongoDB**, and **EJS**.  
-This project marks my **first full-stack application**, implementing frontend + backend + authentication + database from scratch.
+A server-rendered user-management application built with Express, EJS and MongoDB. The project includes user registration and login, profile management, and a separate admin area for managing user accounts.
 
-> 🎨 The UI is entirely designed with the help of ChatGPT, inspired by the **MoonKnight** aesthetic — sleek, dark, and mysterious.
+## Features
 
-🔗 **Live Link**: *(Add your deployed link here)*  
-📦 **Stack**: Node.js | Express | MongoDB | EJS | HTML | CSS
+- User registration and login with bcrypt password hashing
+- Session-based user authentication
+- Profile viewing and editing
+- Admin login and user-management dashboard
+- Admin actions for creating, editing, blocking and deleting accounts
+- EJS views with a dark MoonKnight-inspired interface
 
----
+## Stack
 
-## ✨ Features
+Node.js 20.6+, Express 4, MongoDB/Mongoose, EJS, express-session and bcrypt.
 
-- 🔐 **Secure Authentication**
-  - Signup, Login, Logout
-  - Passwords hashed with `bcrypt`
-- 👤 **User Profile Management**
-  - View/update name & email
-  - Delete own account
-- 🛡️ **Admin Panel**
-  - View all users
-  - Block, unblock, or delete users
-- 🗃️ **MongoDB Integration**
-  - Uses `mongoose` for schema modeling and CRUD operations
-- 🌐 **EJS-Based UI**
-  - Clean, dark-themed interface
-  - Responsive and user-friendly templates
-- 🧱 **Session Handling**
-  - Login persistence using `express-session`
-- ❌ **Robust Error Handling**
-  - Graceful messages and route protection
-- 🎨 **MoonKnight UI**
-  - Subtle animations, smooth layout, sharp contrast  
-  - Fully generated and polished with GPT's help
-
----
-
-## 🗂️ Folder Structure
-
-```
-user-management-system/
-├── config/          # MongoDB config file
-├── controllers/     # Auth & User logic
-├── middleware/      # Auth checks and error handling
-├── models/          # User schema (Mongoose)
-├── public/          # CSS, assets
-├── routes/          # User & admin routes
-├── views/           # EJS UI templates
-├── index.js         # Main server entry point
-├── package.json     # Project metadata
-└── README.md        # Project documentation
-```
-
----
-
-## 🚀 Getting Started
-
-### 1. Clone the repository
+## Run locally
 
 ```bash
-git clone https://github.com/nashid-k/user-management-system.git
-cd user-management-system
-```
-
-### 2. Install dependencies
-
-```bash
+git clone https://github.com/Nashid-k/moonknight-ums.git
+cd moonknight-ums
 npm install
-```
-
-### 3. Setup MongoDB
-
-Update the MongoDB URI in `config/db.js`:
-
-```javascript
-mongoose.connect('mongodb://localhost:27017/ums-app', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
-```
-
-Or use `.env` and `dotenv` for security (recommended in production)
-
-### 4. Run the application
-
-```bash
+cp .env.example .env
 npm start
 ```
 
-Then open your browser at: `http://localhost:3000`
+Open [http://localhost:3002](http://localhost:3002).
 
----
+## Environment
 
-## 🛠️ Technologies Used
+| Variable | Purpose |
+| --- | --- |
+| `PORT` | HTTP port (defaults to 3002) |
+| `MONGODB_URI` | MongoDB connection string |
+| `SESSION_SECRET` | Long, random secret used to sign session cookies |
+| `NODE_ENV` | Set to `production` to enable secure cookies (HTTPS required) |
 
-- **Backend**: Node.js, Express.js
-- **Database**: MongoDB with Mongoose ODM
-- **Template Engine**: EJS
-- **Authentication**: bcrypt for password hashing
-- **Session Management**: express-session
-- **Frontend**: HTML5, CSS3, JavaScript
+Node's `--env-file` option loads the local `.env` file. Do not commit real credentials.
 
----
+## Routes
 
-## 📝 Environment Variables
+- User area: registration, login, profile, home and logout
+- Admin area: `/admin` login, dashboard, user creation, editing and deletion
 
-Create a `.env` file in the root directory:
+## Security notes
 
-```env
-PORT=3000
-MONGODB_URI=mongodb://localhost:27017/ums-app
-SESSION_SECRET=your-secret-key-here
-```
-
----
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
----
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
----
-
-## 🙏 Acknowledgments
-
-- **MoonKnight** for the design inspiration
-- **ChatGPT** for UI design assistance
-- **MongoDB** and **Express.js** communities for excellent documentation
-
----
-
-## 📧 Contact
-
-**Nashid K** - [nashidk1999@gmail.com](mailto:nashidk1999@gmail.com)
-
-Project Link: [https://github.com/nashid-k/user-management-system](https://github.com/nashid-k/user-management-system)
+The admin and user areas use separate Express sub-apps and session middleware. Admin write routes are protected by admin-session middleware. Before production deployment, configure HTTPS, a persistent session store, CSRF protection, login rate limiting, input validation and stronger operational monitoring.
