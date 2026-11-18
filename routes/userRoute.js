@@ -11,7 +11,7 @@ const userController = require("../controllers/userController");
 user_route.use(
   session({
     secret: config.sessionSecret,
-    saveUninitialized: true,
+    saveUninitialized: false,\n    cookie: { httpOnly: true, sameSite: "lax", secure: process.env.NODE_ENV === "production" },
     resave: false,
   })
 );
@@ -43,6 +43,6 @@ user_route.get("/logout", auth.isLogin, userController.userLogout);
 
 // Edit account routes
 user_route.get("/edit", auth.isLogin, userController.editProfile);
-user_route.post("/update", userController.updateProfile);
+user_route.post("/update", auth.isLogin, userController.updateProfile);
 
 module.exports = user_route;
