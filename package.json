@@ -8,5 +8,10 @@
     "mongodb": "^6.5.0",
     "mongoose": "^8.3.0",
     "nocache": "^4.0.0"
+  },
+  "name": "moonknight-ums",
+  "scripts": {
+    "start": "node --env-file=.env index.js",
+    "dev": "nodemon --exec \"node --env-file=.env\" index.js"
   }
 }
