@@ -8,7 +8,7 @@ A server-rendered user-management application built with Express, EJS and MongoD
 - Session-based user authentication
 - Profile viewing and editing
 - Admin login and user-management dashboard
-- Admin actions for creating, editing, blocking and deleting accounts
+- Admin actions for creating, editing and deleting accounts
 - EJS views with a dark MoonKnight-inspired interface
 
 ## Stack
