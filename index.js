@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-mongoose.connect("mongodb://127.0.0.1:27017/user_management_system");
+mongoose.connect(process.env.MONGODB_URI || "mongodb://127.0.0.1:27017/user_management_system");
 const path = require("path");
 const express = require("express");
 const nocache = require("nocache");
@@ -15,6 +15,8 @@ app.use("/", userRoute);
 const adminRoute = require("./routes/adminRoute");
 app.use("/admin", adminRoute);
 
-app.listen(3002, () => {
-  console.log(`http://localhost:3002`);
+const PORT = process.env.PORT || 3002;
+
+app.listen(PORT, () => {
+  console.log(`Server listening on port ${PORT}`);
 });
